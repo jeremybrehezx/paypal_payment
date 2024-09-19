@@ -66,8 +66,8 @@ To install the PayPal Payment Package, follow these steps
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => PaypalOrderPayment(
                           sandboxMode: true,
-                          returnURL: url,
-                          cancelURL: url,
+                          <!-- returnURL: url, mandatory for web -->
+                          <!-- cancelURL: url, mandatory for web -->
                           clientId: clientId,
                           secretKey: secretKey,
                           currencyCode: currencyCode,
