@@ -1,6 +1,6 @@
 name: paypal_payment
 description: Dart package for paypal payment integration in all platforms.
-version: 1.0.0+3
+version: 1.0.0+4
 repository: https://github.com/code-Shabbir/paypal_payment.git
 
 environment:

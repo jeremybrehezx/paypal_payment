@@ -15,3 +15,10 @@
 ## 1.0.0+3
 
 - Added referenceId to create-order request
+- returnURL and cancelURL are now optional for order creation
+- Updated github repository clone url
+- Updated README.md
+
+## 1.0.0+4
+
+- Fix null check error for cancelurl
