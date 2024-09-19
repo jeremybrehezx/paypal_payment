@@ -174,7 +174,8 @@ class PaypalOrderPaymentState extends State<PaypalOrderPayment> {
                   );
                 }
 
-                if (requestURL.path.contains(widget.cancelURL!)) {
+                if (widget.cancelURL != null &&
+                    requestURL.path.contains(widget.cancelURL!)) {
                   widget.onCancel!();
                   Navigator.of(context).pop();
                 }
