@@ -2,6 +2,23 @@
 
 /// An array of billing cycles for trial billing and regular billing. A plan can have at most two trial cycles and only one regular cycle.
 class BillingCycles {
+  /// Constructor of BillingCycles
+  BillingCycles({
+    required this.tenureType,
+    required this.sequence,
+    required this.frequency,
+    this.totalCycles,
+    this.pricingScheme,
+  });
+
+  /// BillingCycles fromJson method
+  BillingCycles.fromJson(Map<String, dynamic> json)
+      : tenureType = json['tenureType'],
+        sequence = json['sequence'],
+        totalCycles = json['totalCycles'],
+        pricingScheme = json['pricingScheme'],
+        frequency = json['frequency'];
+
   /// The tenure type of the billing cycle. In case of a plan having trial cycle, only 2 trial cycles are allowed per plan. Enum: REGULAR, TRIAL
   final String tenureType;
 
@@ -17,42 +34,18 @@ class BillingCycles {
   /// The frequency details for this billing cycle.
   Frequency frequency;
 
-  /// Constructor of BillingCycles
-  BillingCycles({
-    required this.tenureType,
-    required this.sequence,
-    this.totalCycles,
-    this.pricingScheme,
-    required this.frequency,
-  });
-
-  /// BillingCycles fromJson method
-  BillingCycles.fromJson(Map<String, dynamic> json)
-      : tenureType = json['tenureType'],
-        sequence = json['sequence'],
-        totalCycles = json['totalCycles'],
-        pricingScheme = json['pricingScheme'],
-        frequency = json['frequency'];
-
   /// BillingCycles toJson method
   Map<String, dynamic> toJson() => {
         'tenureType': tenureType,
         'sequence': sequence,
         'totalCycles': totalCycles,
         'pricingScheme': pricingScheme,
-        'frequency': frequency
+        'frequency': frequency,
       };
 }
 
 /// The frequency details for this billing cycle.
 class Frequency {
-  /// The interval at which the subscription is charged or billed. Enum: DAY, WEEK, WEEK, WEEK
-  // ignore: prefer_typing_uninitialized_variables
-  final intervalUnit;
-
-  /// The number of intervals after which a subscriber is billed. integer [ 1 .. 365 ]
-  final int? intervalCount;
-
   /// Constructor for Frequency
   Frequency({
     required this.intervalUnit,
@@ -64,6 +57,13 @@ class Frequency {
       : intervalUnit = json['intervalUnit'],
         intervalCount = json['intervalCount'];
 
+  /// The interval at which the subscription is charged or billed. Enum: DAY, WEEK, WEEK, WEEK
+  // ignore: prefer_typing_uninitialized_variables
+  final intervalUnit;
+
+  /// The number of intervals after which a subscriber is billed. integer [ 1 .. 365 ]
+  final int? intervalCount;
+
   /// Frequency toJson method
   Map<String, dynamic> toJson() => {
         'intervalUnit': intervalUnit,
@@ -73,19 +73,19 @@ class Frequency {
 
 /// The tax details.
 class Taxes {
-  /// boolean - Indicates whether the tax was already included in the billing amount.
-  final bool? inclusive;
-
-  /// string - The tax percentage on the billing amount.
-  final String percentage;
-
   /// Constructor of Taxes
-  Taxes({this.inclusive, required this.percentage});
+  Taxes({required this.percentage, this.inclusive});
 
   /// Taxes fromJson method
   Taxes.fromJson(Map<String, dynamic> json)
       : inclusive = json['inclusive'],
         percentage = json['percentage'];
+
+  /// boolean - Indicates whether the tax was already included in the billing amount.
+  final bool? inclusive;
+
+  /// string - The tax percentage on the billing amount.
+  final String percentage;
 
   /// Taxes toJson method
   Map<String, dynamic> toJson() => {
@@ -96,6 +96,21 @@ class Taxes {
 
 /// The payment preferences for a subscription.
 class PaymentPreferences {
+  /// Constructor of PaymentPreferences
+  PaymentPreferences({
+    this.autoBillOutstanding,
+    this.setupFeeFailureAction,
+    this.paymentFailureThreshold,
+    this.setupFee,
+  });
+
+  /// PaymentPreferences fromJson method
+  PaymentPreferences.fromJson(Map<String, dynamic> json)
+      : autoBillOutstanding = json['autoBillOutstanding'],
+        setupFeeFailureAction = json['setupFeeFailureAction'],
+        paymentFailureThreshold = json['paymentFailureThreshold'],
+        setupFee = json['setupFee'];
+
   /// boolean - Default: true - Indicates whether to automatically bill the outstanding amount in the next billing cycle.
   final bool? autoBillOutstanding;
 
@@ -108,20 +123,6 @@ class PaymentPreferences {
   /// The initial set-up fee for the service.
   final SetupFee? setupFee;
 
-  /// Constructor of PaymentPreferences
-  PaymentPreferences(
-      {this.autoBillOutstanding,
-      this.setupFeeFailureAction,
-      this.paymentFailureThreshold,
-      this.setupFee});
-
-  /// PaymentPreferences fromJson method
-  PaymentPreferences.fromJson(Map<String, dynamic> json)
-      : autoBillOutstanding = json['autoBillOutstanding'],
-        setupFeeFailureAction = json['setupFeeFailureAction'],
-        paymentFailureThreshold = json['paymentFailureThreshold'],
-        setupFee = json['setupFee'];
-
   /// PaymentPreferences toJson method
   Map<String, dynamic> toJson() => {
         'autoBillOutstanding': autoBillOutstanding,
@@ -133,12 +134,6 @@ class PaymentPreferences {
 
 /// The initial set-up fee for the service.
 class SetupFee {
-  /// string = 3 characters - The three-character ISO-4217 currency code that identifies the currency.
-  final String currencyCode;
-
-  /// string <= 32 characters
-  final String value;
-
   /// Constructor of SetupFee
   SetupFee({required this.currencyCode, required this.value});
 
@@ -146,6 +141,12 @@ class SetupFee {
   SetupFee.fromJson(Map<String, dynamic> json)
       : currencyCode = json['currencyCode'],
         value = json['value'];
+
+  /// string = 3 characters - The three-character ISO-4217 currency code that identifies the currency.
+  final String currencyCode;
+
+  /// string <= 32 characters
+  final String value;
 
   /// SetupFee toJson method
   Map<String, dynamic> toJson() => {

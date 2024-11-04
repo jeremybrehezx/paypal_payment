@@ -1,17 +1,26 @@
 /// The shipping charges.
 class ShippingAmount {
+  /// COnstructor for ShippingAmount
+  ShippingAmount({required this.currencyCode, required this.value});
+
   /// string = 3 characters - The three-character ISO-4217 currency code that identifies the currency.
   final String currencyCode;
 
   /// string <= 32 characters
   final String value;
-
-  /// COnstructor for ShippingAmount
-  ShippingAmount({required this.currencyCode, required this.value});
 }
 
 /// The subscriber request information .
 class Subscriber {
+  /// Constructor for Subscriber
+  Subscriber(
+    this.emailAddress,
+    this.name,
+    this.phone,
+    this.shippingAddress,
+    this.paymentSource,
+  );
+
   /// string <= 254 characters - The email address of the payer.
   final String? emailAddress;
 
@@ -26,14 +35,21 @@ class Subscriber {
 
   /// The payment source definition. To be eligible to create subscription using debit or credit card, you will need to sign up here
   final Map? paymentSource;
-
-  /// Constructor for Subscriber
-  Subscriber(this.emailAddress, this.name, this.phone, this.shippingAddress,
-      this.paymentSource);
 }
 
 /// The application context, which customizes the payer experience during the subscription approval process with PayPal.
 class ApplicationContext {
+  /// Constructor for ApplicationContext
+  ApplicationContext({
+    required this.returnUrl,
+    required this.cancelUrl,
+    this.brandName,
+    this.shippingPreference,
+    this.userAction,
+    this.locale,
+    this.paymentMethod,
+  });
+
   /// The label that overrides the business name in the PayPal account on the PayPal site.
   final String? brandName;
 
@@ -54,14 +70,4 @@ class ApplicationContext {
 
   /// The customer and merchant payment preferences. Currently only PAYPAL payment method is supported.
   final Map? paymentMethod;
-
-  /// Constructor for ApplicationContext
-  ApplicationContext(
-      {this.brandName,
-      this.shippingPreference,
-      this.userAction,
-      required this.returnUrl,
-      required this.cancelUrl,
-      this.locale,
-      this.paymentMethod});
 }

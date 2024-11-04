@@ -1,7 +1,7 @@
-import 'package:paypal_payment/src/core/services/http_service.dart';
-import 'package:paypal_payment/src/core/services/paypal_order_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:paypal_payment/paypal_payment.dart';
+import 'package:paypal_payment/src/core/models/order_payment_config.dart';
 
 /// get instance of PaypalOrderService
 PaypalOrderService getPaypalOrderServices({sandboxMode, clientId, secretKey}) {
@@ -14,40 +14,22 @@ PaypalOrderService getPaypalOrderServices({sandboxMode, clientId, secretKey}) {
 
 /// StatefulWidget for handling paypal order payment
 class PaypalOrderPayment extends StatefulWidget {
-  /// callbacks
-  final Function? onSuccess, onCancel, onError;
-
-  /// return and cancel urls, clientId and secret
-  final String? returnURL, cancelURL, note, clientId, secretKey, referenceId;
-
-  /// is sandboxMode or not(live)
-  final bool? sandboxMode;
-
-  /// currency code for ex: USD
-  final String? currencyCode;
-
-  /// order amount
-  final String? amount;
-
-  /// order intent - refer to model for more info
-  final String? intent;
-
   /// Constructor for PaypalOrderPayment
   const PaypalOrderPayment({
+    required this.orderConfig,
+    this.uiConfig,
     this.onSuccess,
     this.onError,
     this.onCancel,
-    this.returnURL,
-    this.cancelURL,
-    required this.clientId,
-    required this.secretKey,
-    this.sandboxMode = true,
-    this.note = '',
-    required this.currencyCode,
-    required this.amount,
-    this.intent = 'CAPTURE',
-    this.referenceId,
   });
+
+  /// callbacks
+  final Function? onSuccess;
+  final Function? onCancel;
+  final Function? onError;
+
+  final PayPalOrderConfig orderConfig;
+  final PayPalUiConfig? uiConfig;
 
   @override
   State<StatefulWidget> createState() {
@@ -77,22 +59,14 @@ class PaypalOrderPaymentState extends State<PaypalOrderPayment> {
 
   /// get order parameters
   Map getOrderParams() {
-    Map<String, dynamic> temp = {
-      "intent": widget.intent,
-      "purchase_units": [
-        {
-          "reference_id": widget.referenceId,
-          "amount": {
-            "currency_code": widget.currencyCode,
-            "value": widget.amount,
-          }
-        }
-      ],
-      "note_to_payer": widget.note,
-      "application_context": {
-        "return_url": widget.returnURL,
-        "cancel_url": widget.cancelURL
-      }
+    final Map<String, dynamic> temp = {
+      'intent': widget.orderConfig.intent,
+      'purchase_units': widget.orderConfig.purchaseUnits,
+      'note_to_payer': widget.orderConfig.note,
+      'application_context': {
+        'return_url': widget.orderConfig.returnUrl,
+        'cancel_url': widget.orderConfig.cancelUrl,
+      },
     };
     return temp;
   }
@@ -100,9 +74,9 @@ class PaypalOrderPaymentState extends State<PaypalOrderPayment> {
   @override
   void initState() {
     services = getPaypalOrderServices(
-      sandboxMode: widget.sandboxMode!,
-      clientId: widget.clientId!,
-      secretKey: widget.secretKey!,
+      sandboxMode: widget.orderConfig.sandbox,
+      clientId: widget.orderConfig.clientId,
+      secretKey: widget.orderConfig.clientSecret,
     );
 
     super.initState();
@@ -110,18 +84,19 @@ class PaypalOrderPaymentState extends State<PaypalOrderPayment> {
       try {
         if (!HttpService.isInitialized()) {
           await HttpService.initializedHttpService(
-              sandboxMode: widget.sandboxMode!,
-              clientId: widget.clientId,
-              secretKey: widget.secretKey);
+            sandboxMode: widget.orderConfig.sandbox!,
+            clientId: widget.orderConfig.clientId,
+            secretKey: widget.orderConfig.clientSecret,
+          );
         }
 
         final body = getOrderParams();
         final res = await PaypalOrderService.createOrder(body);
 
-        if (!res['error'] && res["approveUrl"] != null) {
+        if (!res['error'] && res['approveUrl'] != null) {
           setState(() {
-            approveUrl = res["approveUrl"];
-            captureUrl = res["captureUrl"];
+            approveUrl = res['approveUrl'];
+            captureUrl = res['captureUrl'];
           });
         } else {
           widget.onError!(res);
@@ -139,11 +114,13 @@ class PaypalOrderPaymentState extends State<PaypalOrderPayment> {
     if (approveUrl != null) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: widget.uiConfig?.appBarColor ?? Colors.transparent,
           elevation: 0,
           centerTitle: true,
-          title: const Text(
-            "Paypal Payment",
+          leading: widget.uiConfig?.backButton,
+          title: Text(
+            widget.uiConfig?.appBarText ?? 'PayPal Checkout',
+            style: widget.uiConfig?.appBarTextStyle,
           ),
         ),
         body: Stack(
@@ -174,8 +151,8 @@ class PaypalOrderPaymentState extends State<PaypalOrderPayment> {
                   );
                 }
 
-                if (widget.cancelURL != null &&
-                    requestURL.path.contains(widget.cancelURL!)) {
+                if (widget.orderConfig.cancelUrl != null &&
+                    requestURL.path.contains(widget.orderConfig.cancelUrl!)) {
                   widget.onCancel!();
                   Navigator.of(context).pop();
                 }
@@ -190,28 +167,37 @@ class PaypalOrderPaymentState extends State<PaypalOrderPayment> {
                 });
               },
             ),
-            progress < 1
-                ? SizedBox(
-                    height: 3,
-                    child: LinearProgressIndicator(
-                      value: progress,
-                    ),
-                  )
-                : const SizedBox(),
+            if (progress < 1)
+              SizedBox(
+                height: 3,
+                child: LinearProgressIndicator(
+                  value: progress,
+                  color: widget.uiConfig?.primaryColor,
+                ),
+              )
+            else
+              const SizedBox(),
           ],
         ),
       );
     } else {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: widget.uiConfig?.appBarColor ?? Colors.transparent,
           elevation: 0,
           centerTitle: true,
-          title: const Text(
-            "Paypal Payment",
+          leading: widget.uiConfig?.backButton,
+          title: Text(
+            widget.uiConfig?.appBarText ?? 'PayPal Checkout',
+            style: widget.uiConfig?.appBarTextStyle,
           ),
         ),
-        body: const Center(child: CircularProgressIndicator()),
+        body: widget.uiConfig?.loadingAnimation ??
+            Center(
+              child: CircularProgressIndicator(
+                color: widget.uiConfig?.primaryColor,
+              ),
+            ),
       );
     }
   }

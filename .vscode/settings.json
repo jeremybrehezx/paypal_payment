@@ -1,0 +1,12 @@
+{
+    "[dart]": {
+        "editor.formatOnSave": true
+    },
+    "files.exclude": {
+        "**/*.freezed.dart": true,
+        "**/*.g.dart": true,
+        "**/*.graphql.dart": false,
+        "**/.git": false
+    },
+    "java.configuration.updateBuildConfiguration": "disabled"
+}

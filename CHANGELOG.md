@@ -22,3 +22,8 @@
 ## 1.0.0+4
 
 - Fix null check error for cancelurl
+
+## 2.0.0+1
+
+- add ui-config
+- enhanced models (freezed)
