@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:paypal_payment/paypal_payment.dart';
-import 'package:paypal_payment/src/core/models/order_payment_config.dart';
 
 /// get instance of PaypalOrderService
 PaypalOrderService getPaypalOrderServices({sandboxMode, clientId, secretKey}) {
@@ -28,7 +27,7 @@ class PaypalOrderPayment extends StatefulWidget {
   final Function? onCancel;
   final Function? onError;
 
-  final PayPalOrderConfig orderConfig;
+  final PayPalOrderPaymentConfig orderConfig;
   final PayPalUiConfig? uiConfig;
 
   @override

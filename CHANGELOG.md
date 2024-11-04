@@ -27,3 +27,7 @@
 
 - add ui-config
 - enhanced models (freezed)
+
+## 2.0.0+2
+
+- fix orderconfig

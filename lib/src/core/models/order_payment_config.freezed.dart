@@ -14,12 +14,13 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-PayPalOrderConfig _$PayPalOrderConfigFromJson(Map<String, dynamic> json) {
-  return _PayPalOrderConfig.fromJson(json);
+PayPalOrderPaymentConfig _$PayPalOrderPaymentConfigFromJson(
+    Map<String, dynamic> json) {
+  return _PayPalOrderPaymentConfig.fromJson(json);
 }
 
 /// @nodoc
-mixin _$PayPalOrderConfig {
+mixin _$PayPalOrderPaymentConfig {
   String get clientId => throw _privateConstructorUsedError;
   String get clientSecret => throw _privateConstructorUsedError;
   PayPalPurchaseUnits get purchaseUnits => throw _privateConstructorUsedError;
@@ -30,21 +31,21 @@ mixin _$PayPalOrderConfig {
   String? get note => throw _privateConstructorUsedError;
   String? get referenceId => throw _privateConstructorUsedError;
 
-  /// Serializes this PayPalOrderConfig to a JSON map.
+  /// Serializes this PayPalOrderPaymentConfig to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of PayPalOrderConfig
+  /// Create a copy of PayPalOrderPaymentConfig
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $PayPalOrderConfigCopyWith<PayPalOrderConfig> get copyWith =>
+  $PayPalOrderPaymentConfigCopyWith<PayPalOrderPaymentConfig> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PayPalOrderConfigCopyWith<$Res> {
-  factory $PayPalOrderConfigCopyWith(
-          PayPalOrderConfig value, $Res Function(PayPalOrderConfig) then) =
-      _$PayPalOrderConfigCopyWithImpl<$Res, PayPalOrderConfig>;
+abstract class $PayPalOrderPaymentConfigCopyWith<$Res> {
+  factory $PayPalOrderPaymentConfigCopyWith(PayPalOrderPaymentConfig value,
+          $Res Function(PayPalOrderPaymentConfig) then) =
+      _$PayPalOrderPaymentConfigCopyWithImpl<$Res, PayPalOrderPaymentConfig>;
   @useResult
   $Res call(
       {String clientId,
@@ -61,16 +62,17 @@ abstract class $PayPalOrderConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PayPalOrderConfigCopyWithImpl<$Res, $Val extends PayPalOrderConfig>
-    implements $PayPalOrderConfigCopyWith<$Res> {
-  _$PayPalOrderConfigCopyWithImpl(this._value, this._then);
+class _$PayPalOrderPaymentConfigCopyWithImpl<$Res,
+        $Val extends PayPalOrderPaymentConfig>
+    implements $PayPalOrderPaymentConfigCopyWith<$Res> {
+  _$PayPalOrderPaymentConfigCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of PayPalOrderConfig
+  /// Create a copy of PayPalOrderPaymentConfig
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -125,7 +127,7 @@ class _$PayPalOrderConfigCopyWithImpl<$Res, $Val extends PayPalOrderConfig>
     ) as $Val);
   }
 
-  /// Create a copy of PayPalOrderConfig
+  /// Create a copy of PayPalOrderPaymentConfig
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -137,11 +139,12 @@ class _$PayPalOrderConfigCopyWithImpl<$Res, $Val extends PayPalOrderConfig>
 }
 
 /// @nodoc
-abstract class _$$PayPalOrderConfigImplCopyWith<$Res>
-    implements $PayPalOrderConfigCopyWith<$Res> {
-  factory _$$PayPalOrderConfigImplCopyWith(_$PayPalOrderConfigImpl value,
-          $Res Function(_$PayPalOrderConfigImpl) then) =
-      __$$PayPalOrderConfigImplCopyWithImpl<$Res>;
+abstract class _$$PayPalOrderPaymentConfigImplCopyWith<$Res>
+    implements $PayPalOrderPaymentConfigCopyWith<$Res> {
+  factory _$$PayPalOrderPaymentConfigImplCopyWith(
+          _$PayPalOrderPaymentConfigImpl value,
+          $Res Function(_$PayPalOrderPaymentConfigImpl) then) =
+      __$$PayPalOrderPaymentConfigImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -160,14 +163,16 @@ abstract class _$$PayPalOrderConfigImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$PayPalOrderConfigImplCopyWithImpl<$Res>
-    extends _$PayPalOrderConfigCopyWithImpl<$Res, _$PayPalOrderConfigImpl>
-    implements _$$PayPalOrderConfigImplCopyWith<$Res> {
-  __$$PayPalOrderConfigImplCopyWithImpl(_$PayPalOrderConfigImpl _value,
-      $Res Function(_$PayPalOrderConfigImpl) _then)
+class __$$PayPalOrderPaymentConfigImplCopyWithImpl<$Res>
+    extends _$PayPalOrderPaymentConfigCopyWithImpl<$Res,
+        _$PayPalOrderPaymentConfigImpl>
+    implements _$$PayPalOrderPaymentConfigImplCopyWith<$Res> {
+  __$$PayPalOrderPaymentConfigImplCopyWithImpl(
+      _$PayPalOrderPaymentConfigImpl _value,
+      $Res Function(_$PayPalOrderPaymentConfigImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PayPalOrderConfig
+  /// Create a copy of PayPalOrderPaymentConfig
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -182,7 +187,7 @@ class __$$PayPalOrderConfigImplCopyWithImpl<$Res>
     Object? note = freezed,
     Object? referenceId = freezed,
   }) {
-    return _then(_$PayPalOrderConfigImpl(
+    return _then(_$PayPalOrderPaymentConfigImpl(
       clientId: null == clientId
           ? _value.clientId
           : clientId // ignore: cast_nullable_to_non_nullable
@@ -222,8 +227,8 @@ class __$$PayPalOrderConfigImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PayPalOrderConfigImpl implements _PayPalOrderConfig {
-  const _$PayPalOrderConfigImpl(
+class _$PayPalOrderPaymentConfigImpl implements _PayPalOrderPaymentConfig {
+  const _$PayPalOrderPaymentConfigImpl(
       {required this.clientId,
       required this.clientSecret,
       required this.purchaseUnits,
@@ -234,8 +239,8 @@ class _$PayPalOrderConfigImpl implements _PayPalOrderConfig {
       this.note,
       this.referenceId});
 
-  factory _$PayPalOrderConfigImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PayPalOrderConfigImplFromJson(json);
+  factory _$PayPalOrderPaymentConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PayPalOrderPaymentConfigImplFromJson(json);
 
   @override
   final String clientId;
@@ -260,14 +265,14 @@ class _$PayPalOrderConfigImpl implements _PayPalOrderConfig {
 
   @override
   String toString() {
-    return 'PayPalOrderConfig(clientId: $clientId, clientSecret: $clientSecret, purchaseUnits: $purchaseUnits, sandbox: $sandbox, intent: $intent, returnUrl: $returnUrl, cancelUrl: $cancelUrl, note: $note, referenceId: $referenceId)';
+    return 'PayPalOrderPaymentConfig(clientId: $clientId, clientSecret: $clientSecret, purchaseUnits: $purchaseUnits, sandbox: $sandbox, intent: $intent, returnUrl: $returnUrl, cancelUrl: $cancelUrl, note: $note, referenceId: $referenceId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PayPalOrderConfigImpl &&
+            other is _$PayPalOrderPaymentConfigImpl &&
             (identical(other.clientId, clientId) ||
                 other.clientId == clientId) &&
             (identical(other.clientSecret, clientSecret) ||
@@ -299,25 +304,25 @@ class _$PayPalOrderConfigImpl implements _PayPalOrderConfig {
       note,
       referenceId);
 
-  /// Create a copy of PayPalOrderConfig
+  /// Create a copy of PayPalOrderPaymentConfig
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$PayPalOrderConfigImplCopyWith<_$PayPalOrderConfigImpl> get copyWith =>
-      __$$PayPalOrderConfigImplCopyWithImpl<_$PayPalOrderConfigImpl>(
-          this, _$identity);
+  _$$PayPalOrderPaymentConfigImplCopyWith<_$PayPalOrderPaymentConfigImpl>
+      get copyWith => __$$PayPalOrderPaymentConfigImplCopyWithImpl<
+          _$PayPalOrderPaymentConfigImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PayPalOrderConfigImplToJson(
+    return _$$PayPalOrderPaymentConfigImplToJson(
       this,
     );
   }
 }
 
-abstract class _PayPalOrderConfig implements PayPalOrderConfig {
-  const factory _PayPalOrderConfig(
+abstract class _PayPalOrderPaymentConfig implements PayPalOrderPaymentConfig {
+  const factory _PayPalOrderPaymentConfig(
       {required final String clientId,
       required final String clientSecret,
       required final PayPalPurchaseUnits purchaseUnits,
@@ -326,10 +331,10 @@ abstract class _PayPalOrderConfig implements PayPalOrderConfig {
       final String? returnUrl,
       final String? cancelUrl,
       final String? note,
-      final String? referenceId}) = _$PayPalOrderConfigImpl;
+      final String? referenceId}) = _$PayPalOrderPaymentConfigImpl;
 
-  factory _PayPalOrderConfig.fromJson(Map<String, dynamic> json) =
-      _$PayPalOrderConfigImpl.fromJson;
+  factory _PayPalOrderPaymentConfig.fromJson(Map<String, dynamic> json) =
+      _$PayPalOrderPaymentConfigImpl.fromJson;
 
   @override
   String get clientId;
@@ -350,10 +355,10 @@ abstract class _PayPalOrderConfig implements PayPalOrderConfig {
   @override
   String? get referenceId;
 
-  /// Create a copy of PayPalOrderConfig
+  /// Create a copy of PayPalOrderPaymentConfig
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PayPalOrderConfigImplCopyWith<_$PayPalOrderConfigImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PayPalOrderPaymentConfigImplCopyWith<_$PayPalOrderPaymentConfigImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

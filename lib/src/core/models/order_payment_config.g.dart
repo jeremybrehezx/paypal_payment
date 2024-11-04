@@ -6,9 +6,9 @@ part of 'order_payment_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PayPalOrderConfigImpl _$$PayPalOrderConfigImplFromJson(
+_$PayPalOrderPaymentConfigImpl _$$PayPalOrderPaymentConfigImplFromJson(
         Map<String, dynamic> json) =>
-    _$PayPalOrderConfigImpl(
+    _$PayPalOrderPaymentConfigImpl(
       clientId: json['clientId'] as String,
       clientSecret: json['clientSecret'] as String,
       purchaseUnits: PayPalPurchaseUnits.fromJson(
@@ -21,8 +21,8 @@ _$PayPalOrderConfigImpl _$$PayPalOrderConfigImplFromJson(
       referenceId: json['referenceId'] as String?,
     );
 
-Map<String, dynamic> _$$PayPalOrderConfigImplToJson(
-        _$PayPalOrderConfigImpl instance) =>
+Map<String, dynamic> _$$PayPalOrderPaymentConfigImplToJson(
+        _$PayPalOrderPaymentConfigImpl instance) =>
     <String, dynamic>{
       'clientId': instance.clientId,
       'clientSecret': instance.clientSecret,

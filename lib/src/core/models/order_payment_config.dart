@@ -5,8 +5,8 @@ part 'order_payment_config.freezed.dart';
 part 'order_payment_config.g.dart';
 
 @freezed
-class PayPalOrderConfig with _$PayPalOrderConfig {
-  const factory PayPalOrderConfig({
+class PayPalOrderPaymentConfig with _$PayPalOrderPaymentConfig {
+  const factory PayPalOrderPaymentConfig({
     required String clientId,
     required String clientSecret,
     required PayPalPurchaseUnits purchaseUnits,
@@ -16,8 +16,8 @@ class PayPalOrderConfig with _$PayPalOrderConfig {
     String? cancelUrl,
     String? note,
     String? referenceId,
-  }) = _PayPalOrderConfig;
+  }) = _PayPalOrderPaymentConfig;
 
-  factory PayPalOrderConfig.fromJson(Map<String, dynamic> json) =>
-      _$PayPalOrderConfigFromJson(json);
+  factory PayPalOrderPaymentConfig.fromJson(Map<String, dynamic> json) =>
+      _$PayPalOrderPaymentConfigFromJson(json);
 }
