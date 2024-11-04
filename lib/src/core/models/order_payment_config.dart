@@ -9,7 +9,7 @@ class PayPalOrderPaymentConfig with _$PayPalOrderPaymentConfig {
   const factory PayPalOrderPaymentConfig({
     required String clientId,
     required String clientSecret,
-    required PayPalPurchaseUnits purchaseUnits,
+    required List<PayPalPurchaseUnits> purchaseUnits,
     @Default(false) sandbox,
     @Default('CAPTURE') String intent,
     String? returnUrl,

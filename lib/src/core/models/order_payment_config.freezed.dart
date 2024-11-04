@@ -23,7 +23,8 @@ PayPalOrderPaymentConfig _$PayPalOrderPaymentConfigFromJson(
 mixin _$PayPalOrderPaymentConfig {
   String get clientId => throw _privateConstructorUsedError;
   String get clientSecret => throw _privateConstructorUsedError;
-  PayPalPurchaseUnits get purchaseUnits => throw _privateConstructorUsedError;
+  List<PayPalPurchaseUnits> get purchaseUnits =>
+      throw _privateConstructorUsedError;
   dynamic get sandbox => throw _privateConstructorUsedError;
   String get intent => throw _privateConstructorUsedError;
   String? get returnUrl => throw _privateConstructorUsedError;
@@ -50,15 +51,13 @@ abstract class $PayPalOrderPaymentConfigCopyWith<$Res> {
   $Res call(
       {String clientId,
       String clientSecret,
-      PayPalPurchaseUnits purchaseUnits,
+      List<PayPalPurchaseUnits> purchaseUnits,
       dynamic sandbox,
       String intent,
       String? returnUrl,
       String? cancelUrl,
       String? note,
       String? referenceId});
-
-  $PayPalPurchaseUnitsCopyWith<$Res> get purchaseUnits;
 }
 
 /// @nodoc
@@ -99,7 +98,7 @@ class _$PayPalOrderPaymentConfigCopyWithImpl<$Res,
       purchaseUnits: null == purchaseUnits
           ? _value.purchaseUnits
           : purchaseUnits // ignore: cast_nullable_to_non_nullable
-              as PayPalPurchaseUnits,
+              as List<PayPalPurchaseUnits>,
       sandbox: freezed == sandbox
           ? _value.sandbox
           : sandbox // ignore: cast_nullable_to_non_nullable
@@ -126,16 +125,6 @@ class _$PayPalOrderPaymentConfigCopyWithImpl<$Res,
               as String?,
     ) as $Val);
   }
-
-  /// Create a copy of PayPalOrderPaymentConfig
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $PayPalPurchaseUnitsCopyWith<$Res> get purchaseUnits {
-    return $PayPalPurchaseUnitsCopyWith<$Res>(_value.purchaseUnits, (value) {
-      return _then(_value.copyWith(purchaseUnits: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -150,16 +139,13 @@ abstract class _$$PayPalOrderPaymentConfigImplCopyWith<$Res>
   $Res call(
       {String clientId,
       String clientSecret,
-      PayPalPurchaseUnits purchaseUnits,
+      List<PayPalPurchaseUnits> purchaseUnits,
       dynamic sandbox,
       String intent,
       String? returnUrl,
       String? cancelUrl,
       String? note,
       String? referenceId});
-
-  @override
-  $PayPalPurchaseUnitsCopyWith<$Res> get purchaseUnits;
 }
 
 /// @nodoc
@@ -197,9 +183,9 @@ class __$$PayPalOrderPaymentConfigImplCopyWithImpl<$Res>
           : clientSecret // ignore: cast_nullable_to_non_nullable
               as String,
       purchaseUnits: null == purchaseUnits
-          ? _value.purchaseUnits
+          ? _value._purchaseUnits
           : purchaseUnits // ignore: cast_nullable_to_non_nullable
-              as PayPalPurchaseUnits,
+              as List<PayPalPurchaseUnits>,
       sandbox: freezed == sandbox ? _value.sandbox! : sandbox,
       intent: null == intent
           ? _value.intent
@@ -231,13 +217,14 @@ class _$PayPalOrderPaymentConfigImpl implements _PayPalOrderPaymentConfig {
   const _$PayPalOrderPaymentConfigImpl(
       {required this.clientId,
       required this.clientSecret,
-      required this.purchaseUnits,
+      required final List<PayPalPurchaseUnits> purchaseUnits,
       this.sandbox = false,
       this.intent = 'CAPTURE',
       this.returnUrl,
       this.cancelUrl,
       this.note,
-      this.referenceId});
+      this.referenceId})
+      : _purchaseUnits = purchaseUnits;
 
   factory _$PayPalOrderPaymentConfigImpl.fromJson(Map<String, dynamic> json) =>
       _$$PayPalOrderPaymentConfigImplFromJson(json);
@@ -246,8 +233,14 @@ class _$PayPalOrderPaymentConfigImpl implements _PayPalOrderPaymentConfig {
   final String clientId;
   @override
   final String clientSecret;
+  final List<PayPalPurchaseUnits> _purchaseUnits;
   @override
-  final PayPalPurchaseUnits purchaseUnits;
+  List<PayPalPurchaseUnits> get purchaseUnits {
+    if (_purchaseUnits is EqualUnmodifiableListView) return _purchaseUnits;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_purchaseUnits);
+  }
+
   @override
   @JsonKey()
   final dynamic sandbox;
@@ -277,8 +270,8 @@ class _$PayPalOrderPaymentConfigImpl implements _PayPalOrderPaymentConfig {
                 other.clientId == clientId) &&
             (identical(other.clientSecret, clientSecret) ||
                 other.clientSecret == clientSecret) &&
-            (identical(other.purchaseUnits, purchaseUnits) ||
-                other.purchaseUnits == purchaseUnits) &&
+            const DeepCollectionEquality()
+                .equals(other._purchaseUnits, _purchaseUnits) &&
             const DeepCollectionEquality().equals(other.sandbox, sandbox) &&
             (identical(other.intent, intent) || other.intent == intent) &&
             (identical(other.returnUrl, returnUrl) ||
@@ -296,7 +289,7 @@ class _$PayPalOrderPaymentConfigImpl implements _PayPalOrderPaymentConfig {
       runtimeType,
       clientId,
       clientSecret,
-      purchaseUnits,
+      const DeepCollectionEquality().hash(_purchaseUnits),
       const DeepCollectionEquality().hash(sandbox),
       intent,
       returnUrl,
@@ -325,7 +318,7 @@ abstract class _PayPalOrderPaymentConfig implements PayPalOrderPaymentConfig {
   const factory _PayPalOrderPaymentConfig(
       {required final String clientId,
       required final String clientSecret,
-      required final PayPalPurchaseUnits purchaseUnits,
+      required final List<PayPalPurchaseUnits> purchaseUnits,
       final dynamic sandbox,
       final String intent,
       final String? returnUrl,
@@ -341,7 +334,7 @@ abstract class _PayPalOrderPaymentConfig implements PayPalOrderPaymentConfig {
   @override
   String get clientSecret;
   @override
-  PayPalPurchaseUnits get purchaseUnits;
+  List<PayPalPurchaseUnits> get purchaseUnits;
   @override
   dynamic get sandbox;
   @override

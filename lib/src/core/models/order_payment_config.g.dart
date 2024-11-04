@@ -11,8 +11,9 @@ _$PayPalOrderPaymentConfigImpl _$$PayPalOrderPaymentConfigImplFromJson(
     _$PayPalOrderPaymentConfigImpl(
       clientId: json['clientId'] as String,
       clientSecret: json['clientSecret'] as String,
-      purchaseUnits: PayPalPurchaseUnits.fromJson(
-          json['purchaseUnits'] as Map<String, dynamic>),
+      purchaseUnits: (json['purchaseUnits'] as List<dynamic>)
+          .map((e) => PayPalPurchaseUnits.fromJson(e as Map<String, dynamic>))
+          .toList(),
       sandbox: json['sandbox'] ?? false,
       intent: json['intent'] as String? ?? 'CAPTURE',
       returnUrl: json['returnUrl'] as String?,

@@ -31,3 +31,7 @@
 ## 2.0.0+2
 
 - fix orderconfig
+
+## 2.0.0+3
+
+- purchase units as array
