@@ -4,12 +4,6 @@ import 'package:paypal_payment/src/core/services/util_service.dart';
 
 /// Paypal order service having create, capture endpoints implemented
 class PaypalOrderService {
-  /// clientId, secretKey from paypal developer dashboard
-  final String clientId, secretKey;
-
-  /// is sandbox mode or not(live)
-  final bool sandboxMode;
-
   /// Constructor for PaypalOrderService
   PaypalOrderService({
     required this.clientId,
@@ -17,18 +11,29 @@ class PaypalOrderService {
     required this.sandboxMode,
   });
 
+  /// clientId, secretKey from paypal developer dashboard
+  final String clientId;
+  final String secretKey;
+
+  /// is sandbox mode or not(live)
+  final bool sandboxMode;
+
   /// create paypal order
+  // ignore: always_declare_return_types
   static createOrder(orderBody, {clientId, secretKey, sandboxMode}) async {
     try {
       if (!HttpService.isInitialized()) {
         await HttpService.initializedHttpService(
-            sandboxMode: sandboxMode, clientId: clientId, secretKey: secretKey);
+          sandboxMode: sandboxMode,
+          clientId: clientId,
+          secretKey: secretKey,
+        );
       }
 
       final response =
           await httpService.post('v2/checkout/orders', data: orderBody);
       if (!response['error']) {
-        List links = response['data']["links"];
+        final List links = response['data']['links'];
         if (links.isNotEmpty) {
           return getPaymentUrls(links);
         }
@@ -42,12 +47,19 @@ class PaypalOrderService {
   }
 
   /// capture paypal order
-  static Future<Map<String, dynamic>> captureOrder(url,
-      {clientId, secretKey, sandboxMode}) async {
+  static Future<Map<String, dynamic>> captureOrder(
+    url, {
+    clientId,
+    secretKey,
+    sandboxMode,
+  }) async {
     try {
       if (!HttpService.isInitialized()) {
-        HttpService service = await HttpService.initializedHttpService(
-            sandboxMode: sandboxMode, clientId: clientId, secretKey: secretKey);
+        final HttpService service = await HttpService.initializedHttpService(
+          sandboxMode: sandboxMode,
+          clientId: clientId,
+          secretKey: secretKey,
+        );
         httpService = service;
       }
 

@@ -12,6 +12,7 @@ class PayPalPurchaseUnitsShippingItemUnitAmount
   }) = _PayPalPurchaseUnitsItemUnitAmount;
 
   factory PayPalPurchaseUnitsShippingItemUnitAmount.fromJson(
-          Map<String, dynamic> json) =>
+    Map<String, dynamic> json,
+  ) =>
       _$PayPalPurchaseUnitsShippingItemUnitAmountFromJson(json);
 }

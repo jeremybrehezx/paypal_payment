@@ -4,12 +4,6 @@ import 'package:paypal_payment/src/core/services/util_service.dart';
 
 /// Paypal subscription service having create, capture endpoints implemented
 class PaypalSubscriptionService {
-  /// clientId, secretKey from paypal developer dashboard
-  final String clientId, secretKey;
-
-  /// is sandbox mode or not(live)
-  final bool sandboxMode;
-
   /// Constructor for PaypalOrderService
   PaypalSubscriptionService({
     required this.clientId,
@@ -17,15 +11,29 @@ class PaypalSubscriptionService {
     required this.sandboxMode,
   });
 
+  /// clientId, secretKey from paypal developer dashboard
+  final String clientId;
+  final String secretKey;
+
+  /// is sandbox mode or not(live)
+  final bool sandboxMode;
+
   // subscription start
 
   /// create paypal product
-  static Future<Map<String, dynamic>> createProduct(productBody,
-      {clientId, secretKey, sandboxMode}) async {
+  static Future<Map<String, dynamic>> createProduct(
+    productBody, {
+    clientId,
+    secretKey,
+    sandboxMode,
+  }) async {
     try {
       if (!HttpService.isInitialized()) {
         await HttpService.initializedHttpService(
-            sandboxMode: sandboxMode, clientId: clientId, secretKey: secretKey);
+          sandboxMode: sandboxMode,
+          clientId: clientId,
+          secretKey: secretKey,
+        );
       }
 
       final response =
@@ -38,12 +46,19 @@ class PaypalSubscriptionService {
   }
 
   /// create paypal plan
-  static Future<Map<String, dynamic>> createPlan(planBody,
-      {clientId, secretKey, sandboxMode}) async {
+  static Future<Map<String, dynamic>> createPlan(
+    planBody, {
+    clientId,
+    secretKey,
+    sandboxMode,
+  }) async {
     try {
       if (!HttpService.isInitialized()) {
         httpService = await HttpService.initializedHttpService(
-            sandboxMode: sandboxMode, clientId: clientId, secretKey: secretKey);
+          sandboxMode: sandboxMode,
+          clientId: clientId,
+          secretKey: secretKey,
+        );
       }
 
       final response =
@@ -56,12 +71,19 @@ class PaypalSubscriptionService {
   }
 
   /// get paypal subscription detail
-  static Future<Map<String, dynamic>> getSubscriptionDetails(subscriptionId,
-      {clientId, secretKey, sandboxMode}) async {
+  static Future<Map<String, dynamic>> getSubscriptionDetails(
+    subscriptionId, {
+    clientId,
+    secretKey,
+    sandboxMode,
+  }) async {
     try {
       if (!HttpService.isInitialized()) {
         httpService = await HttpService.initializedHttpService(
-            sandboxMode: sandboxMode, clientId: clientId, secretKey: secretKey);
+          sandboxMode: sandboxMode,
+          clientId: clientId,
+          secretKey: secretKey,
+        );
       }
 
       final response =
@@ -74,19 +96,28 @@ class PaypalSubscriptionService {
   }
 
   /// create paypal subscription
-  static Future<Map<String, dynamic>> createSubscription(subscriptionBody,
-      {clientId, secretKey, sandboxMode}) async {
+  static Future<Map<String, dynamic>> createSubscription(
+    subscriptionBody, {
+    clientId,
+    secretKey,
+    sandboxMode,
+  }) async {
     try {
       if (!HttpService.isInitialized()) {
         httpService = await HttpService.initializedHttpService(
-            sandboxMode: sandboxMode, clientId: clientId, secretKey: secretKey);
+          sandboxMode: sandboxMode,
+          clientId: clientId,
+          secretKey: secretKey,
+        );
       }
 
-      final response = await httpService.post('v1/billing/subscriptions',
-          data: subscriptionBody);
+      final response = await httpService.post(
+        'v1/billing/subscriptions',
+        data: subscriptionBody,
+      );
 
       if (!response['error']) {
-        List links = response['data']["links"];
+        final List links = response['data']['links'];
         if (links.isNotEmpty) {
           return getPaymentUrls(links);
         }
@@ -101,17 +132,25 @@ class PaypalSubscriptionService {
 
   /// capture paypal subscription
   static Future<Map<String, dynamic>> captureSubscription(
-      subscriptionId, subscriptionBody,
-      {clientId, secretKey, sandboxMode}) async {
+    subscriptionId,
+    subscriptionBody, {
+    clientId,
+    secretKey,
+    sandboxMode,
+  }) async {
     try {
       if (!HttpService.isInitialized()) {
         httpService = await HttpService.initializedHttpService(
-            sandboxMode: sandboxMode, clientId: clientId, secretKey: secretKey);
+          sandboxMode: sandboxMode,
+          clientId: clientId,
+          secretKey: secretKey,
+        );
       }
 
       final response = await httpService.post(
-          'v1/billing/subscriptions/$subscriptionId/capture',
-          data: subscriptionBody);
+        'v1/billing/subscriptions/$subscriptionId/capture',
+        data: subscriptionBody,
+      );
 
       return response;
     } catch (e) {

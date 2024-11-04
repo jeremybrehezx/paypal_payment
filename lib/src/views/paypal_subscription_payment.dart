@@ -4,8 +4,11 @@ import 'package:paypal_payment/src/core/services/http_service.dart';
 import 'package:paypal_payment/src/core/services/paypal_subscription_service.dart';
 
 /// get instance of getPaypalSubscriptionServices
-PaypalSubscriptionService getPaypalSubscriptionServices(
-    {sandboxMode, clientId, secretKey}) {
+PaypalSubscriptionService getPaypalSubscriptionServices({
+  sandboxMode,
+  clientId,
+  secretKey,
+}) {
   return PaypalSubscriptionService(
     sandboxMode: sandboxMode,
     clientId: clientId,
@@ -16,11 +19,53 @@ PaypalSubscriptionService getPaypalSubscriptionServices(
 /// StatefulWidget for handling paypal subscription payment
 // ignore: must_be_immutable
 class PaypalSubscriptionPayment extends StatefulWidget {
+  /// StatefulWidget for handling paypal subscription payment
+  PaypalSubscriptionPayment({
+    required this.returnURL,
+    required this.cancelURL,
+    required this.clientId,
+    required this.secretKey, // product
+    required this.productName,
+    required this.type,
+    required this.planName,
+    required this.billingCycles,
+    required this.paymentPreferences,
+    this.onSuccess,
+    this.onError,
+    this.onCancel,
+    this.sandboxMode = true,
+    this.productDescription,
+    this.category,
+    this.imageUrl,
+    this.homeUrl,
+    // plan
+    this.productId,
+    this.status = 'ACTIVE',
+    this.planDescription,
+    this.quantitySupported,
+    this.taxes,
+    // subscription
+    this.planId,
+    this.quantity,
+    this.autoRenewal,
+    this.customId,
+    this.startTime,
+    this.shippingAmount,
+    this.subscriber,
+    this.applicationContext,
+    this.plan,
+  });
+
   /// callbacks
-  final Function? onSuccess, onCancel, onError;
+  final Function? onSuccess;
+  final Function? onCancel;
+  final Function? onError;
 
   /// return and cancel urls, clientId and secret
-  final String? returnURL, cancelURL, clientId, secretKey;
+  final String? returnURL;
+  final String? cancelURL;
+  final String? clientId;
+  final String? secretKey;
 
   /// is sandboxMode or not(live)
   final bool? sandboxMode;
@@ -98,44 +143,6 @@ class PaypalSubscriptionPayment extends StatefulWidget {
   /// plan
   final Map? plan;
 
-  /// StatefulWidget for handling paypal subscription payment
-  PaypalSubscriptionPayment({
-    this.onSuccess,
-    this.onError,
-    this.onCancel,
-    required this.returnURL,
-    required this.cancelURL,
-    required this.clientId,
-    required this.secretKey,
-    this.sandboxMode = true,
-    // product
-    required this.productName,
-    this.productDescription,
-    required this.type,
-    this.category,
-    this.imageUrl,
-    this.homeUrl,
-    // plan
-    this.productId,
-    required this.planName,
-    this.status = 'ACTIVE',
-    this.planDescription,
-    required this.billingCycles,
-    this.quantitySupported,
-    required this.paymentPreferences,
-    this.taxes,
-    // subscription
-    this.planId,
-    this.quantity,
-    this.autoRenewal,
-    this.customId,
-    this.startTime,
-    this.shippingAmount,
-    this.subscriber,
-    this.applicationContext,
-    this.plan,
-  });
-
   @override
   State<StatefulWidget> createState() {
     return PaypalSubscriptionPaymentState();
@@ -167,47 +174,47 @@ class PaypalSubscriptionPaymentState extends State<PaypalSubscriptionPayment> {
 
   /// get create product parameters
   Map getCreateProductParams() {
-    Map<String, dynamic> temp = {
-      "name": widget.productName,
-      "description": widget.productDescription,
-      "type": widget.type,
-      "category": widget.category,
-      "image_url": widget.imageUrl,
-      "home_url": widget.homeUrl,
+    final Map<String, dynamic> temp = {
+      'name': widget.productName,
+      'description': widget.productDescription,
+      'type': widget.type,
+      'category': widget.category,
+      'image_url': widget.imageUrl,
+      'home_url': widget.homeUrl,
     };
     return temp;
   }
 
   /// get create plan parameters
   Map getCreatePlanParams() {
-    Map<String, dynamic> temp = {
-      "product_id": widget.productId,
-      "name": widget.planName,
-      "status": widget.status,
-      "description": widget.planDescription,
-      "billing_cycles": widget.billingCycles,
-      "quantity_supported": widget.quantitySupported,
-      "payment_preferences": widget.paymentPreferences,
-      "taxes": widget.taxes,
+    final Map<String, dynamic> temp = {
+      'product_id': widget.productId,
+      'name': widget.planName,
+      'status': widget.status,
+      'description': widget.planDescription,
+      'billing_cycles': widget.billingCycles,
+      'quantity_supported': widget.quantitySupported,
+      'payment_preferences': widget.paymentPreferences,
+      'taxes': widget.taxes,
     };
     return temp;
   }
 
   /// get create subscription parameters
   Map getCreateSubscriptionParams() {
-    Map<String, dynamic> temp = {
-      "plan_id": widget.planId,
-      "quantity": widget.quantity,
-      "auto_renewal": widget.autoRenewal,
-      "custom_id": widget.customId,
-      "start_time": widget.startTime,
-      "shipping_amount": widget.shippingAmount,
-      "subscriber": widget.subscriber,
-      "application_context": {
-        "return_url": widget.returnURL,
-        "cancel_url": widget.cancelURL
+    final Map<String, dynamic> temp = {
+      'plan_id': widget.planId,
+      'quantity': widget.quantity,
+      'auto_renewal': widget.autoRenewal,
+      'custom_id': widget.customId,
+      'start_time': widget.startTime,
+      'shipping_amount': widget.shippingAmount,
+      'subscriber': widget.subscriber,
+      'application_context': {
+        'return_url': widget.returnURL,
+        'cancel_url': widget.cancelURL,
       },
-      "plan": widget.plan,
+      'plan': widget.plan,
     };
     return temp;
   }
@@ -234,9 +241,10 @@ class PaypalSubscriptionPaymentState extends State<PaypalSubscriptionPayment> {
       try {
         if (!HttpService.isInitialized()) {
           await HttpService.initializedHttpService(
-              sandboxMode: widget.sandboxMode!,
-              clientId: widget.clientId,
-              secretKey: widget.secretKey);
+            sandboxMode: widget.sandboxMode!,
+            clientId: widget.clientId,
+            secretKey: widget.secretKey,
+          );
         }
 
         // final isTokenAvailable = await httpService.getAccessToken();
@@ -262,16 +270,17 @@ class PaypalSubscriptionPaymentState extends State<PaypalSubscriptionPayment> {
         final createSubscriptionBody = getCreateSubscriptionParams();
         final createSubscriptionResponse =
             await PaypalSubscriptionService.createSubscription(
-                createSubscriptionBody);
+          createSubscriptionBody,
+        );
 
         if (isError(createSubscriptionResponse)) {
           return widget.onError!(createSubscriptionResponse);
         }
 
-        if (createSubscriptionResponse["approveUrl"] != null) {
+        if (createSubscriptionResponse['approveUrl'] != null) {
           setState(() {
-            approveUrl = createSubscriptionResponse["approveUrl"];
-            captureUrl = createSubscriptionResponse["captureUrl"];
+            approveUrl = createSubscriptionResponse['approveUrl'];
+            captureUrl = createSubscriptionResponse['captureUrl'];
           });
         }
         // }
@@ -291,7 +300,7 @@ class PaypalSubscriptionPaymentState extends State<PaypalSubscriptionPayment> {
           elevation: 0,
           centerTitle: true,
           title: const Text(
-            "Paypal Payment",
+            'Paypal Payment',
           ),
         ),
         body: Stack(
@@ -316,8 +325,8 @@ class PaypalSubscriptionPaymentState extends State<PaypalSubscriptionPayment> {
                   });
 
                   widget.onSuccess!({
-                    "message": "Subscription purchased successfully!",
-                    "id": subscriptionId
+                    'message': 'Subscription purchased successfully!',
+                    'id': subscriptionId,
                   });
                   Navigator.of(context).pop();
                 }
@@ -337,14 +346,15 @@ class PaypalSubscriptionPaymentState extends State<PaypalSubscriptionPayment> {
                 });
               },
             ),
-            progress < 1
-                ? SizedBox(
-                    height: 3,
-                    child: LinearProgressIndicator(
-                      value: progress,
-                    ),
-                  )
-                : const SizedBox(),
+            if (progress < 1)
+              SizedBox(
+                height: 3,
+                child: LinearProgressIndicator(
+                  value: progress,
+                ),
+              )
+            else
+              const SizedBox(),
           ],
         ),
       );
@@ -355,7 +365,7 @@ class PaypalSubscriptionPaymentState extends State<PaypalSubscriptionPayment> {
           elevation: 0,
           centerTitle: true,
           title: const Text(
-            "Paypal Payment",
+            'Paypal Payment',
           ),
         ),
         body: const Center(child: CircularProgressIndicator()),

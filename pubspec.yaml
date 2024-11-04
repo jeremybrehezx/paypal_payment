@@ -7,7 +7,6 @@ environment:
   sdk: ">=3.3.0 <4.0.0"
   flutter: ">=3.22.0"
 
-# Add regular dependencies here.
 dependencies:
   flutter:
     sdk: flutter

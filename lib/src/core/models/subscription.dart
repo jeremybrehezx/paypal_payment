@@ -1,73 +1,79 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'subscription.freezed.dart';
+part 'subscription.g.dart';
+
 /// The shipping charges.
-class ShippingAmount {
-  /// COnstructor for ShippingAmount
-  ShippingAmount({required this.currencyCode, required this.value});
+@freezed
+class ShippingAmount with _$ShippingAmount {
+  /// Constructor for ShippingAmount
+  const factory ShippingAmount({
+    /// The three-character ISO-4217 currency code that identifies the currency.
+    required String currencyCode,
 
-  /// string = 3 characters - The three-character ISO-4217 currency code that identifies the currency.
-  final String currencyCode;
+    /// The amount as a string with a maximum of 32 characters.
+    required String value,
+  }) = _ShippingAmount;
 
-  /// string <= 32 characters
-  final String value;
+  /// ShippingAmount fromJson method
+  factory ShippingAmount.fromJson(Map<String, dynamic> json) =>
+      _$ShippingAmountFromJson(json);
 }
 
-/// The subscriber request information .
-class Subscriber {
+/// The subscriber request information.
+@freezed
+class Subscriber with _$Subscriber {
   /// Constructor for Subscriber
-  Subscriber(
-    this.emailAddress,
-    this.name,
-    this.phone,
-    this.shippingAddress,
-    this.paymentSource,
-  );
+  const factory Subscriber({
+    /// The email address of the payer (optional, max 254 characters).
+    String? emailAddress,
 
-  /// string <= 254 characters - The email address of the payer.
-  final String? emailAddress;
+    /// The name of the payer. Supports only given_name and surname properties.
+    Map<String, dynamic>? name,
 
-  /// The name of the payer. Supports only the given_name and surname properties.
-  final Map? name;
+    /// The phone number of the customer.
+    Map<String, dynamic>? phone,
 
-  /// The phone number of the customer. Available only when you enable the Contact Telephone Number option in the Profile & Settings for the merchant's PayPal account. The phone.phone_number supports only national_number.
-  final Map? phone;
+    /// The shipping details.
+    Map<String, dynamic>? shippingAddress,
 
-  /// The shipping details.
-  final Map? shippingAddress;
+    /// The payment source definition.
+    Map<String, dynamic>? paymentSource,
+  }) = _Subscriber;
 
-  /// The payment source definition. To be eligible to create subscription using debit or credit card, you will need to sign up here
-  final Map? paymentSource;
+  /// Subscriber fromJson method
+  factory Subscriber.fromJson(Map<String, dynamic> json) =>
+      _$SubscriberFromJson(json);
 }
 
 /// The application context, which customizes the payer experience during the subscription approval process with PayPal.
-class ApplicationContext {
+@freezed
+class ApplicationContext with _$ApplicationContext {
   /// Constructor for ApplicationContext
-  ApplicationContext({
-    required this.returnUrl,
-    required this.cancelUrl,
-    this.brandName,
-    this.shippingPreference,
-    this.userAction,
-    this.locale,
-    this.paymentMethod,
-  });
+  const factory ApplicationContext({
+    /// The URL where the customer is redirected after approving the payment.
+    required String returnUrl,
 
-  /// The label that overrides the business name in the PayPal account on the PayPal site.
-  final String? brandName;
+    /// The URL where the customer is redirected after canceling the payment.
+    required String cancelUrl,
 
-  /// The location from which the shipping address is derived. - GET_FROM_FILE, NO_SHIPPING and SET_PROVIDED_ADDRESS.
-  final String? shippingPreference;
+    /// The label that overrides the business name in the PayPal account.
+    String? brandName,
 
-  /// Configures the label name to Continue or Subscribe Now for subscription consent experience. - CONTINUE, SUBSCRIBE_NOW.
-  final String? userAction;
+    /// The location from which the shipping address is derived.
+    String? shippingPreference,
 
-  /// The URL where the customer is redirected after the customer approves the payment.
-  final String returnUrl;
+    /// Configures the label name to Continue or Subscribe Now.
+    String? userAction,
 
-  /// The URL where the customer is redirected after the customer cancels the payment.
-  final String cancelUrl;
+    /// The BCP 47-formatted locale of PayPal pages.
+    String? locale,
 
-  /// The BCP 47-formatted locale of pages that the PayPal payment experience shows. PayPal supports a five-character code. For example, da-DK, he-IL, id-ID, ja-JP, no-NO, pt-BR, ru-RU, sv-SE, th-TH, zh-CN, zh-HK, or zh-TW.
-  final String? locale;
+    /// The customer and merchant payment preferences.
+    Map<String, dynamic>? paymentMethod,
+  }) = _ApplicationContext;
 
-  /// The customer and merchant payment preferences. Currently only PAYPAL payment method is supported.
-  final Map? paymentMethod;
+  /// ApplicationContext fromJson method
+  factory ApplicationContext.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationContextFromJson(json);
 }

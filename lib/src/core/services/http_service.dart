@@ -6,6 +6,17 @@ late HttpService httpService;
 
 /// Common http service for handling all requests of the application.
 class HttpService {
+  HttpService._privateConstructor(this.baseUrl, this.clientId, this.secretKey) {
+    _dio.interceptors
+        .add(LogInterceptor(requestBody: true, responseBody: true));
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: _onRequest,
+        onResponse: _onResponse,
+        onError: _onError,
+      ),
+    );
+  }
   final Dio _dio = Dio();
 
   /// baseUrl - Added to each request - baseUrl + url
@@ -20,18 +31,14 @@ class HttpService {
   /// accessToken - optional - eithier generated already or will generate
   static String? accessToken;
 
-  HttpService._privateConstructor(this.baseUrl, this.clientId, this.secretKey) {
-    _dio.interceptors
-        .add(LogInterceptor(requestBody: true, responseBody: true));
-    _dio.interceptors.add(InterceptorsWrapper(
-        onRequest: _onRequest, onResponse: _onResponse, onError: _onError));
-  }
-
   static HttpService? _instance;
 
   /// get httpInstance
   static HttpService getInstance(
-      String baseUrl, String clientId, String secretKey) {
+    String baseUrl,
+    String clientId,
+    String secretKey,
+  ) {
     _instance ??= HttpService._privateConstructor(baseUrl, clientId, secretKey);
     return _instance!;
   }
@@ -42,13 +49,17 @@ class HttpService {
   }
 
   /// GET request
-  Future<Map<String, dynamic>> get(String path,
-      {Map<String, dynamic>? queryParameters,
-      String? contentType = Headers.jsonContentType}) async {
+  Future<Map<String, dynamic>> get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    String? contentType = Headers.jsonContentType,
+  }) async {
     try {
-      final Response response = await _dio.get(path,
-          queryParameters: queryParameters,
-          options: Options(contentType: contentType));
+      final Response response = await _dio.get(
+        path,
+        queryParameters: queryParameters,
+        options: Options(contentType: contentType),
+      );
 
       return _handleResponse(response);
     } catch (error) {
@@ -57,13 +68,17 @@ class HttpService {
   }
 
   /// DELETE request
-  Future<Map<String, dynamic>> delete(String path,
-      {Map<String, dynamic>? queryParameters,
-      String? contentType = Headers.jsonContentType}) async {
+  Future<Map<String, dynamic>> delete(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    String? contentType = Headers.jsonContentType,
+  }) async {
     try {
-      final Response response = await _dio.delete(path,
-          queryParameters: queryParameters,
-          options: Options(contentType: contentType));
+      final Response response = await _dio.delete(
+        path,
+        queryParameters: queryParameters,
+        options: Options(contentType: contentType),
+      );
 
       return _handleResponse(response);
     } catch (error) {
@@ -72,12 +87,17 @@ class HttpService {
   }
 
   /// POST request
-  Future<Map<String, dynamic>> post(String path,
-      {Map<String, dynamic>? data,
-      String? contentType = Headers.jsonContentType}) async {
+  Future<Map<String, dynamic>> post(
+    String path, {
+    Map<String, dynamic>? data,
+    String? contentType = Headers.jsonContentType,
+  }) async {
     try {
-      final Response response = await _dio.post(path,
-          data: data, options: Options(contentType: contentType));
+      final Response response = await _dio.post(
+        path,
+        data: data,
+        options: Options(contentType: contentType),
+      );
 
       return _handleResponse(response);
     } catch (error) {
@@ -86,15 +106,20 @@ class HttpService {
   }
 
   //// initialized http service
-  static initializedHttpService(
-      {required sandboxMode, required clientId, required secretKey}) async {
+  // ignore: always_declare_return_types
+  static initializedHttpService({
+    required sandboxMode,
+    required clientId,
+    required secretKey,
+  }) async {
     try {
       httpService = HttpService.getInstance(
-          sandboxMode!
-              ? "https://api-m.sandbox.paypal.com/"
-              : "https://api.paypal.com/",
-          clientId,
-          secretKey);
+        sandboxMode!
+            ? 'https://api-m.sandbox.paypal.com/'
+            : 'https://api.paypal.com/',
+        clientId,
+        secretKey,
+      );
 
       await httpService.getAccessToken();
 
@@ -108,11 +133,12 @@ class HttpService {
   Future<dynamic> getAccessToken() async {
     try {
       final Map<String, dynamic> response = await post(
-          'v1/oauth2/token?grant_type=client_credentials',
-          contentType: Headers.formUrlEncodedContentType);
+        'v1/oauth2/token?grant_type=client_credentials',
+        contentType: Headers.formUrlEncodedContentType,
+      );
 
       if (!response['error']) {
-        accessToken = response['data']["access_token"];
+        accessToken = response['data']['access_token'];
         return true;
       }
 
@@ -138,7 +164,7 @@ class HttpService {
     // Add common headers or configurations for every request
     if (accessToken == null) {
       final authToken = base64.encode(
-        utf8.encode("$clientId:$secretKey"),
+        utf8.encode('$clientId:$secretKey'),
       );
 
       options.headers['Authorization'] = 'Basic $authToken';
@@ -157,10 +183,12 @@ class HttpService {
   }
 
   Future<void> _onError(
-      DioException error, ErrorInterceptorHandler handler) async {
+    DioException error,
+    ErrorInterceptorHandler handler,
+  ) async {
     // Handle error responses globally
-    int? statusCode = error.response!.statusCode;
-    var data = error.response!.data;
+    final int? statusCode = error.response!.statusCode;
+    final data = error.response!.data;
 
     print('DioExceptionType - ${statusCode!}');
     print('DioExceptionResponse - ${data!}');
@@ -168,7 +196,7 @@ class HttpService {
     if (statusCode == 401 && data!['error'] == 'invalid_token') {
       accessToken = null;
       await getAccessToken();
-      data?['error_description'] = "Token refresh successfully!!! Try again";
+      data?['error_description'] = 'Token refresh successfully!!! Try again';
     }
 
     handler.next(error);
