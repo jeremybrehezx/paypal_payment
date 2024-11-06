@@ -25,6 +25,8 @@ mixin _$PayPalPurchaseUnits {
       throw _privateConstructorUsedError;
   List<PayPalPurchaseUnitsItem>? get items =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: 'reference_id')
+  String? get referenceId => throw _privateConstructorUsedError;
 
   /// Serializes this PayPalPurchaseUnits to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,7 +47,8 @@ abstract class $PayPalPurchaseUnitsCopyWith<$Res> {
   $Res call(
       {PayPalPurchaseUnitsAmount amount,
       PayPalPurchaseUnitsShipping? shipping,
-      List<PayPalPurchaseUnitsItem>? items});
+      List<PayPalPurchaseUnitsItem>? items,
+      @JsonKey(name: 'reference_id') String? referenceId});
 
   $PayPalPurchaseUnitsAmountCopyWith<$Res> get amount;
   $PayPalPurchaseUnitsShippingCopyWith<$Res>? get shipping;
@@ -69,6 +72,7 @@ class _$PayPalPurchaseUnitsCopyWithImpl<$Res, $Val extends PayPalPurchaseUnits>
     Object? amount = null,
     Object? shipping = freezed,
     Object? items = freezed,
+    Object? referenceId = freezed,
   }) {
     return _then(_value.copyWith(
       amount: null == amount
@@ -83,6 +87,10 @@ class _$PayPalPurchaseUnitsCopyWithImpl<$Res, $Val extends PayPalPurchaseUnits>
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<PayPalPurchaseUnitsItem>?,
+      referenceId: freezed == referenceId
+          ? _value.referenceId
+          : referenceId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -123,7 +131,8 @@ abstract class _$$PayPalPurchaseUnitsImplCopyWith<$Res>
   $Res call(
       {PayPalPurchaseUnitsAmount amount,
       PayPalPurchaseUnitsShipping? shipping,
-      List<PayPalPurchaseUnitsItem>? items});
+      List<PayPalPurchaseUnitsItem>? items,
+      @JsonKey(name: 'reference_id') String? referenceId});
 
   @override
   $PayPalPurchaseUnitsAmountCopyWith<$Res> get amount;
@@ -147,6 +156,7 @@ class __$$PayPalPurchaseUnitsImplCopyWithImpl<$Res>
     Object? amount = null,
     Object? shipping = freezed,
     Object? items = freezed,
+    Object? referenceId = freezed,
   }) {
     return _then(_$PayPalPurchaseUnitsImpl(
       amount: null == amount
@@ -161,6 +171,10 @@ class __$$PayPalPurchaseUnitsImplCopyWithImpl<$Res>
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<PayPalPurchaseUnitsItem>?,
+      referenceId: freezed == referenceId
+          ? _value.referenceId
+          : referenceId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -173,7 +187,8 @@ class _$PayPalPurchaseUnitsImpl
   const _$PayPalPurchaseUnitsImpl(
       {required this.amount,
       this.shipping,
-      final List<PayPalPurchaseUnitsItem>? items})
+      final List<PayPalPurchaseUnitsItem>? items,
+      @JsonKey(name: 'reference_id') this.referenceId})
       : _items = items;
 
   factory _$PayPalPurchaseUnitsImpl.fromJson(Map<String, dynamic> json) =>
@@ -194,8 +209,12 @@ class _$PayPalPurchaseUnitsImpl
   }
 
   @override
+  @JsonKey(name: 'reference_id')
+  final String? referenceId;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PayPalPurchaseUnits(amount: $amount, shipping: $shipping, items: $items)';
+    return 'PayPalPurchaseUnits(amount: $amount, shipping: $shipping, items: $items, referenceId: $referenceId)';
   }
 
   @override
@@ -205,7 +224,8 @@ class _$PayPalPurchaseUnitsImpl
       ..add(DiagnosticsProperty('type', 'PayPalPurchaseUnits'))
       ..add(DiagnosticsProperty('amount', amount))
       ..add(DiagnosticsProperty('shipping', shipping))
-      ..add(DiagnosticsProperty('items', items));
+      ..add(DiagnosticsProperty('items', items))
+      ..add(DiagnosticsProperty('referenceId', referenceId));
   }
 
   @override
@@ -216,13 +236,15 @@ class _$PayPalPurchaseUnitsImpl
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.shipping, shipping) ||
                 other.shipping == shipping) &&
-            const DeepCollectionEquality().equals(other._items, _items));
+            const DeepCollectionEquality().equals(other._items, _items) &&
+            (identical(other.referenceId, referenceId) ||
+                other.referenceId == referenceId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, amount, shipping,
-      const DeepCollectionEquality().hash(_items));
+      const DeepCollectionEquality().hash(_items), referenceId);
 
   /// Create a copy of PayPalPurchaseUnits
   /// with the given fields replaced by the non-null parameter values.
@@ -243,9 +265,11 @@ class _$PayPalPurchaseUnitsImpl
 
 abstract class _PayPalPurchaseUnits implements PayPalPurchaseUnits {
   const factory _PayPalPurchaseUnits(
-      {required final PayPalPurchaseUnitsAmount amount,
-      final PayPalPurchaseUnitsShipping? shipping,
-      final List<PayPalPurchaseUnitsItem>? items}) = _$PayPalPurchaseUnitsImpl;
+          {required final PayPalPurchaseUnitsAmount amount,
+          final PayPalPurchaseUnitsShipping? shipping,
+          final List<PayPalPurchaseUnitsItem>? items,
+          @JsonKey(name: 'reference_id') final String? referenceId}) =
+      _$PayPalPurchaseUnitsImpl;
 
   factory _PayPalPurchaseUnits.fromJson(Map<String, dynamic> json) =
       _$PayPalPurchaseUnitsImpl.fromJson;
@@ -256,6 +280,9 @@ abstract class _PayPalPurchaseUnits implements PayPalPurchaseUnits {
   PayPalPurchaseUnitsShipping? get shipping;
   @override
   List<PayPalPurchaseUnitsItem>? get items;
+  @override
+  @JsonKey(name: 'reference_id')
+  String? get referenceId;
 
   /// Create a copy of PayPalPurchaseUnits
   /// with the given fields replaced by the non-null parameter values.

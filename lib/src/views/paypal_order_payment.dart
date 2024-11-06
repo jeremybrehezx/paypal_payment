@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:paypal_payment/paypal_payment.dart';
 
-/// get instance of PaypalOrderService
 PaypalOrderService getPaypalOrderServices({sandboxMode, clientId, secretKey}) {
   return PaypalOrderService(
     sandboxMode: sandboxMode,
@@ -11,9 +10,7 @@ PaypalOrderService getPaypalOrderServices({sandboxMode, clientId, secretKey}) {
   );
 }
 
-/// StatefulWidget for handling paypal order payment
 class PaypalOrderPayment extends StatefulWidget {
-  /// Constructor for PaypalOrderPayment
   const PaypalOrderPayment({
     required this.orderConfig,
     this.uiConfig,
@@ -22,7 +19,6 @@ class PaypalOrderPayment extends StatefulWidget {
     this.onCancel,
   });
 
-  /// callbacks
   final Function? onSuccess;
   final Function? onCancel;
   final Function? onError;
@@ -36,27 +32,14 @@ class PaypalOrderPayment extends StatefulWidget {
   }
 }
 
-/// State for PaypalOrderPayment
 class PaypalOrderPaymentState extends State<PaypalOrderPayment> {
-  /// approveUrl for order payment
   String? approveUrl;
-
-  /// navUrl for order payment
   String navUrl = '';
-
-  /// capture url for capturing the order after order success
   String captureUrl = '';
-
-  /// paypal order service instance
   late PaypalOrderService services;
-
-  /// webview progress indicator
   double progress = 0;
-
-  /// webView
   late InAppWebViewController webView;
 
-  /// get order parameters
   Map getOrderParams() {
     final Map<String, dynamic> temp = {
       'intent': widget.orderConfig.intent,

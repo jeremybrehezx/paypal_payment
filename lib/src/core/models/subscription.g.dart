@@ -40,11 +40,11 @@ Map<String, dynamic> _$$SubscriberImplToJson(_$SubscriberImpl instance) =>
 _$ApplicationContextImpl _$$ApplicationContextImplFromJson(
         Map<String, dynamic> json) =>
     _$ApplicationContextImpl(
+      returnUrl: json['returnUrl'] as String,
+      cancelUrl: json['cancelUrl'] as String,
       brandName: json['brandName'] as String?,
       shippingPreference: json['shippingPreference'] as String?,
       userAction: json['userAction'] as String?,
-      returnUrl: json['returnUrl'] as String,
-      cancelUrl: json['cancelUrl'] as String,
       locale: json['locale'] as String?,
       paymentMethod: json['paymentMethod'] as Map<String, dynamic>?,
     );
@@ -52,11 +52,11 @@ _$ApplicationContextImpl _$$ApplicationContextImplFromJson(
 Map<String, dynamic> _$$ApplicationContextImplToJson(
         _$ApplicationContextImpl instance) =>
     <String, dynamic>{
+      'returnUrl': instance.returnUrl,
+      'cancelUrl': instance.cancelUrl,
       'brandName': instance.brandName,
       'shippingPreference': instance.shippingPreference,
       'userAction': instance.userAction,
-      'returnUrl': instance.returnUrl,
-      'cancelUrl': instance.cancelUrl,
       'locale': instance.locale,
       'paymentMethod': instance.paymentMethod,
     };

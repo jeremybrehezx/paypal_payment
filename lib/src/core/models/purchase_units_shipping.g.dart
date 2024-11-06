@@ -10,7 +10,7 @@ _$PayPalPurchaseUnitsShippingImpl _$$PayPalPurchaseUnitsShippingImplFromJson(
         Map<String, dynamic> json) =>
     _$PayPalPurchaseUnitsShippingImpl(
       name: PayPalPurchaseUnitsShippingName.fromJson(
-          json['name'] as Map<String, dynamic>),
+          json['full_name'] as Map<String, dynamic>),
       address: PayPalPurchaseUnitsShippingAddress.fromJson(
           json['address'] as Map<String, dynamic>),
     );
@@ -18,6 +18,6 @@ _$PayPalPurchaseUnitsShippingImpl _$$PayPalPurchaseUnitsShippingImplFromJson(
 Map<String, dynamic> _$$PayPalPurchaseUnitsShippingImplToJson(
         _$PayPalPurchaseUnitsShippingImpl instance) =>
     <String, dynamic>{
-      'name': instance.name,
+      'full_name': instance.name,
       'address': instance.address,
     };

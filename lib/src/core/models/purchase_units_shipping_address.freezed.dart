@@ -27,7 +27,7 @@ mixin _$PayPalPurchaseUnitsShippingAddress {
   String get adminArea2 => throw _privateConstructorUsedError;
   @JsonKey(name: 'postal_code')
   String get postalCode => throw _privateConstructorUsedError;
-  @JsonKey(name: 'countrycode')
+  @JsonKey(name: 'country_code')
   String get countryCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'address_line_2')
   String? get addressLine2 => throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ abstract class $PayPalPurchaseUnitsShippingAddressCopyWith<$Res> {
       {@JsonKey(name: 'address_line_1') String addressLine1,
       @JsonKey(name: 'admin_area_2') String adminArea2,
       @JsonKey(name: 'postal_code') String postalCode,
-      @JsonKey(name: 'countrycode') String countryCode,
+      @JsonKey(name: 'country_code') String countryCode,
       @JsonKey(name: 'address_line_2') String? addressLine2});
 }
 
@@ -119,7 +119,7 @@ abstract class _$$PayPalPurchaseUnitsShippingAddressImplCopyWith<$Res>
       {@JsonKey(name: 'address_line_1') String addressLine1,
       @JsonKey(name: 'admin_area_2') String adminArea2,
       @JsonKey(name: 'postal_code') String postalCode,
-      @JsonKey(name: 'countrycode') String countryCode,
+      @JsonKey(name: 'country_code') String countryCode,
       @JsonKey(name: 'address_line_2') String? addressLine2});
 }
 
@@ -177,7 +177,7 @@ class _$PayPalPurchaseUnitsShippingAddressImpl
       {@JsonKey(name: 'address_line_1') required this.addressLine1,
       @JsonKey(name: 'admin_area_2') required this.adminArea2,
       @JsonKey(name: 'postal_code') required this.postalCode,
-      @JsonKey(name: 'countrycode') required this.countryCode,
+      @JsonKey(name: 'country_code') required this.countryCode,
       @JsonKey(name: 'address_line_2') this.addressLine2});
 
   factory _$PayPalPurchaseUnitsShippingAddressImpl.fromJson(
@@ -194,7 +194,7 @@ class _$PayPalPurchaseUnitsShippingAddressImpl
   @JsonKey(name: 'postal_code')
   final String postalCode;
   @override
-  @JsonKey(name: 'countrycode')
+  @JsonKey(name: 'country_code')
   final String countryCode;
   @override
   @JsonKey(name: 'address_line_2')
@@ -251,7 +251,7 @@ abstract class _PayPalPurchaseUnitsShippingAddress
           {@JsonKey(name: 'address_line_1') required final String addressLine1,
           @JsonKey(name: 'admin_area_2') required final String adminArea2,
           @JsonKey(name: 'postal_code') required final String postalCode,
-          @JsonKey(name: 'countrycode') required final String countryCode,
+          @JsonKey(name: 'country_code') required final String countryCode,
           @JsonKey(name: 'address_line_2') final String? addressLine2}) =
       _$PayPalPurchaseUnitsShippingAddressImpl;
 
@@ -269,7 +269,7 @@ abstract class _PayPalPurchaseUnitsShippingAddress
   @JsonKey(name: 'postal_code')
   String get postalCode;
   @override
-  @JsonKey(name: 'countrycode')
+  @JsonKey(name: 'country_code')
   String get countryCode;
   @override
   @JsonKey(name: 'address_line_2')

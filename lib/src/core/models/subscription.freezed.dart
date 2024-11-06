@@ -508,6 +508,12 @@ ApplicationContext _$ApplicationContextFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ApplicationContext {
+  /// The URL where the customer is redirected after approving the payment.
+  String get returnUrl => throw _privateConstructorUsedError;
+
+  /// The URL where the customer is redirected after canceling the payment.
+  String get cancelUrl => throw _privateConstructorUsedError;
+
   /// The label that overrides the business name in the PayPal account.
   String? get brandName => throw _privateConstructorUsedError;
 
@@ -516,12 +522,6 @@ mixin _$ApplicationContext {
 
   /// Configures the label name to Continue or Subscribe Now.
   String? get userAction => throw _privateConstructorUsedError;
-
-  /// The URL where the customer is redirected after approving the payment.
-  String get returnUrl => throw _privateConstructorUsedError;
-
-  /// The URL where the customer is redirected after canceling the payment.
-  String get cancelUrl => throw _privateConstructorUsedError;
 
   /// The BCP 47-formatted locale of PayPal pages.
   String? get locale => throw _privateConstructorUsedError;
@@ -546,11 +546,11 @@ abstract class $ApplicationContextCopyWith<$Res> {
       _$ApplicationContextCopyWithImpl<$Res, ApplicationContext>;
   @useResult
   $Res call(
-      {String? brandName,
+      {String returnUrl,
+      String cancelUrl,
+      String? brandName,
       String? shippingPreference,
       String? userAction,
-      String returnUrl,
-      String cancelUrl,
       String? locale,
       Map<String, dynamic>? paymentMethod});
 }
@@ -570,15 +570,23 @@ class _$ApplicationContextCopyWithImpl<$Res, $Val extends ApplicationContext>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? returnUrl = null,
+    Object? cancelUrl = null,
     Object? brandName = freezed,
     Object? shippingPreference = freezed,
     Object? userAction = freezed,
-    Object? returnUrl = null,
-    Object? cancelUrl = null,
     Object? locale = freezed,
     Object? paymentMethod = freezed,
   }) {
     return _then(_value.copyWith(
+      returnUrl: null == returnUrl
+          ? _value.returnUrl
+          : returnUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      cancelUrl: null == cancelUrl
+          ? _value.cancelUrl
+          : cancelUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       brandName: freezed == brandName
           ? _value.brandName
           : brandName // ignore: cast_nullable_to_non_nullable
@@ -591,14 +599,6 @@ class _$ApplicationContextCopyWithImpl<$Res, $Val extends ApplicationContext>
           ? _value.userAction
           : userAction // ignore: cast_nullable_to_non_nullable
               as String?,
-      returnUrl: null == returnUrl
-          ? _value.returnUrl
-          : returnUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      cancelUrl: null == cancelUrl
-          ? _value.cancelUrl
-          : cancelUrl // ignore: cast_nullable_to_non_nullable
-              as String,
       locale: freezed == locale
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
@@ -620,11 +620,11 @@ abstract class _$$ApplicationContextImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? brandName,
+      {String returnUrl,
+      String cancelUrl,
+      String? brandName,
       String? shippingPreference,
       String? userAction,
-      String returnUrl,
-      String cancelUrl,
       String? locale,
       Map<String, dynamic>? paymentMethod});
 }
@@ -642,15 +642,23 @@ class __$$ApplicationContextImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? returnUrl = null,
+    Object? cancelUrl = null,
     Object? brandName = freezed,
     Object? shippingPreference = freezed,
     Object? userAction = freezed,
-    Object? returnUrl = null,
-    Object? cancelUrl = null,
     Object? locale = freezed,
     Object? paymentMethod = freezed,
   }) {
     return _then(_$ApplicationContextImpl(
+      returnUrl: null == returnUrl
+          ? _value.returnUrl
+          : returnUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      cancelUrl: null == cancelUrl
+          ? _value.cancelUrl
+          : cancelUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       brandName: freezed == brandName
           ? _value.brandName
           : brandName // ignore: cast_nullable_to_non_nullable
@@ -663,14 +671,6 @@ class __$$ApplicationContextImplCopyWithImpl<$Res>
           ? _value.userAction
           : userAction // ignore: cast_nullable_to_non_nullable
               as String?,
-      returnUrl: null == returnUrl
-          ? _value.returnUrl
-          : returnUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      cancelUrl: null == cancelUrl
-          ? _value.cancelUrl
-          : cancelUrl // ignore: cast_nullable_to_non_nullable
-              as String,
       locale: freezed == locale
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
@@ -687,17 +687,25 @@ class __$$ApplicationContextImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ApplicationContextImpl implements _ApplicationContext {
   const _$ApplicationContextImpl(
-      {this.brandName,
+      {required this.returnUrl,
+      required this.cancelUrl,
+      this.brandName,
       this.shippingPreference,
       this.userAction,
-      required this.returnUrl,
-      required this.cancelUrl,
       this.locale,
       final Map<String, dynamic>? paymentMethod})
       : _paymentMethod = paymentMethod;
 
   factory _$ApplicationContextImpl.fromJson(Map<String, dynamic> json) =>
       _$$ApplicationContextImplFromJson(json);
+
+  /// The URL where the customer is redirected after approving the payment.
+  @override
+  final String returnUrl;
+
+  /// The URL where the customer is redirected after canceling the payment.
+  @override
+  final String cancelUrl;
 
   /// The label that overrides the business name in the PayPal account.
   @override
@@ -710,14 +718,6 @@ class _$ApplicationContextImpl implements _ApplicationContext {
   /// Configures the label name to Continue or Subscribe Now.
   @override
   final String? userAction;
-
-  /// The URL where the customer is redirected after approving the payment.
-  @override
-  final String returnUrl;
-
-  /// The URL where the customer is redirected after canceling the payment.
-  @override
-  final String cancelUrl;
 
   /// The BCP 47-formatted locale of PayPal pages.
   @override
@@ -738,7 +738,7 @@ class _$ApplicationContextImpl implements _ApplicationContext {
 
   @override
   String toString() {
-    return 'ApplicationContext(brandName: $brandName, shippingPreference: $shippingPreference, userAction: $userAction, returnUrl: $returnUrl, cancelUrl: $cancelUrl, locale: $locale, paymentMethod: $paymentMethod)';
+    return 'ApplicationContext(returnUrl: $returnUrl, cancelUrl: $cancelUrl, brandName: $brandName, shippingPreference: $shippingPreference, userAction: $userAction, locale: $locale, paymentMethod: $paymentMethod)';
   }
 
   @override
@@ -746,16 +746,16 @@ class _$ApplicationContextImpl implements _ApplicationContext {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ApplicationContextImpl &&
+            (identical(other.returnUrl, returnUrl) ||
+                other.returnUrl == returnUrl) &&
+            (identical(other.cancelUrl, cancelUrl) ||
+                other.cancelUrl == cancelUrl) &&
             (identical(other.brandName, brandName) ||
                 other.brandName == brandName) &&
             (identical(other.shippingPreference, shippingPreference) ||
                 other.shippingPreference == shippingPreference) &&
             (identical(other.userAction, userAction) ||
                 other.userAction == userAction) &&
-            (identical(other.returnUrl, returnUrl) ||
-                other.returnUrl == returnUrl) &&
-            (identical(other.cancelUrl, cancelUrl) ||
-                other.cancelUrl == cancelUrl) &&
             (identical(other.locale, locale) || other.locale == locale) &&
             const DeepCollectionEquality()
                 .equals(other._paymentMethod, _paymentMethod));
@@ -765,11 +765,11 @@ class _$ApplicationContextImpl implements _ApplicationContext {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      returnUrl,
+      cancelUrl,
       brandName,
       shippingPreference,
       userAction,
-      returnUrl,
-      cancelUrl,
       locale,
       const DeepCollectionEquality().hash(_paymentMethod));
 
@@ -792,16 +792,24 @@ class _$ApplicationContextImpl implements _ApplicationContext {
 
 abstract class _ApplicationContext implements ApplicationContext {
   const factory _ApplicationContext(
-      {final String? brandName,
+      {required final String returnUrl,
+      required final String cancelUrl,
+      final String? brandName,
       final String? shippingPreference,
       final String? userAction,
-      required final String returnUrl,
-      required final String cancelUrl,
       final String? locale,
       final Map<String, dynamic>? paymentMethod}) = _$ApplicationContextImpl;
 
   factory _ApplicationContext.fromJson(Map<String, dynamic> json) =
       _$ApplicationContextImpl.fromJson;
+
+  /// The URL where the customer is redirected after approving the payment.
+  @override
+  String get returnUrl;
+
+  /// The URL where the customer is redirected after canceling the payment.
+  @override
+  String get cancelUrl;
 
   /// The label that overrides the business name in the PayPal account.
   @override
@@ -814,14 +822,6 @@ abstract class _ApplicationContext implements ApplicationContext {
   /// Configures the label name to Continue or Subscribe Now.
   @override
   String? get userAction;
-
-  /// The URL where the customer is redirected after approving the payment.
-  @override
-  String get returnUrl;
-
-  /// The URL where the customer is redirected after canceling the payment.
-  @override
-  String get cancelUrl;
 
   /// The BCP 47-formatted locale of PayPal pages.
   @override

@@ -21,6 +21,7 @@ PayPalPurchaseUnitsShipping _$PayPalPurchaseUnitsShippingFromJson(
 
 /// @nodoc
 mixin _$PayPalPurchaseUnitsShipping {
+  @JsonKey(name: 'full_name')
   PayPalPurchaseUnitsShippingName get name =>
       throw _privateConstructorUsedError;
   PayPalPurchaseUnitsShippingAddress get address =>
@@ -45,7 +46,7 @@ abstract class $PayPalPurchaseUnitsShippingCopyWith<$Res> {
           PayPalPurchaseUnitsShipping>;
   @useResult
   $Res call(
-      {PayPalPurchaseUnitsShippingName name,
+      {@JsonKey(name: 'full_name') PayPalPurchaseUnitsShippingName name,
       PayPalPurchaseUnitsShippingAddress address});
 
   $PayPalPurchaseUnitsShippingNameCopyWith<$Res> get name;
@@ -115,7 +116,7 @@ abstract class _$$PayPalPurchaseUnitsShippingImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {PayPalPurchaseUnitsShippingName name,
+      {@JsonKey(name: 'full_name') PayPalPurchaseUnitsShippingName name,
       PayPalPurchaseUnitsShippingAddress address});
 
   @override
@@ -161,13 +162,14 @@ class _$PayPalPurchaseUnitsShippingImpl
     with DiagnosticableTreeMixin
     implements _PayPalPurchaseUnitsShipping {
   const _$PayPalPurchaseUnitsShippingImpl(
-      {required this.name, required this.address});
+      {@JsonKey(name: 'full_name') required this.name, required this.address});
 
   factory _$PayPalPurchaseUnitsShippingImpl.fromJson(
           Map<String, dynamic> json) =>
       _$$PayPalPurchaseUnitsShippingImplFromJson(json);
 
   @override
+  @JsonKey(name: 'full_name')
   final PayPalPurchaseUnitsShippingName name;
   @override
   final PayPalPurchaseUnitsShippingAddress address;
@@ -219,7 +221,8 @@ class _$PayPalPurchaseUnitsShippingImpl
 abstract class _PayPalPurchaseUnitsShipping
     implements PayPalPurchaseUnitsShipping {
   const factory _PayPalPurchaseUnitsShipping(
-          {required final PayPalPurchaseUnitsShippingName name,
+          {@JsonKey(name: 'full_name')
+          required final PayPalPurchaseUnitsShippingName name,
           required final PayPalPurchaseUnitsShippingAddress address}) =
       _$PayPalPurchaseUnitsShippingImpl;
 
@@ -227,6 +230,7 @@ abstract class _PayPalPurchaseUnitsShipping
       _$PayPalPurchaseUnitsShippingImpl.fromJson;
 
   @override
+  @JsonKey(name: 'full_name')
   PayPalPurchaseUnitsShippingName get name;
   @override
   PayPalPurchaseUnitsShippingAddress get address;

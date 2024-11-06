@@ -11,6 +11,7 @@ abstract class PayPalPurchaseUnits with _$PayPalPurchaseUnits {
     required PayPalPurchaseUnitsAmount amount,
     PayPalPurchaseUnitsShipping? shipping,
     List<PayPalPurchaseUnitsItem>? items,
+    @JsonKey(name: 'reference_id') String? referenceId,
   }) = _PayPalPurchaseUnits;
 
   factory PayPalPurchaseUnits.fromJson(Map<String, dynamic> json) =>

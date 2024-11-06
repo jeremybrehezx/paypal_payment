@@ -8,7 +8,7 @@ part 'purchase_units_shipping.g.dart';
 @freezed
 abstract class PayPalPurchaseUnitsShipping with _$PayPalPurchaseUnitsShipping {
   const factory PayPalPurchaseUnitsShipping({
-    required PayPalPurchaseUnitsShippingName name,
+    @JsonKey(name: 'full_name') required PayPalPurchaseUnitsShippingName name,
     required PayPalPurchaseUnitsShippingAddress address,
   }) = _PayPalPurchaseUnitsShipping;
 

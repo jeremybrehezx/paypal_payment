@@ -19,6 +19,7 @@ _$PayPalPurchaseUnitsImpl _$$PayPalPurchaseUnitsImplFromJson(
           ?.map((e) =>
               PayPalPurchaseUnitsItem.fromJson(e as Map<String, dynamic>))
           .toList(),
+      referenceId: json['reference_id'] as String?,
     );
 
 Map<String, dynamic> _$$PayPalPurchaseUnitsImplToJson(
@@ -27,4 +28,5 @@ Map<String, dynamic> _$$PayPalPurchaseUnitsImplToJson(
       'amount': instance.amount,
       'shipping': instance.shipping,
       'items': instance.items,
+      'reference_id': instance.referenceId,
     };
