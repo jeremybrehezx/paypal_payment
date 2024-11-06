@@ -60,7 +60,9 @@ class PaypalOrderPaymentState extends State<PaypalOrderPayment> {
   Map getOrderParams() {
     final Map<String, dynamic> temp = {
       'intent': widget.orderConfig.intent,
-      'purchase_units': widget.orderConfig.purchaseUnits,
+      'purchase_units': widget.orderConfig.purchaseUnits
+          .map((unit) => unit.toJson())
+          .toList(),
       'note_to_payer': widget.orderConfig.note,
       'application_context': {
         'return_url': widget.orderConfig.returnUrl,
